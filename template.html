@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Cegle</title>
+    <style>
+      #lose-container {
+        display: none;
+      }
+      #win-container {
+        display: none;
+      }
+      #season-container {
+        display: flex;
+      }
+      #seasons-container input {
+        display: none;
+      }
+      #seasons-container input:checked + label {
+        background-color: yellow;
+      }
+      #episodes-container
+      #s1-episodes,
+      #s2-episodes,
+      #s3-episodes,
+      #s4-episodes{
+        display: none;
+      }
+
+      #episodes-container input {
+        display: none
+      }
+      #episodes-container input:checked + label {
+        background-color: yellow;
+      }
+
+      #seasons-container:has(> #s1:checked) + #episodes-container #s1-episodes {
+        display: block;
+      }
+      #seasons-container:has(> #s2:checked) + #episodes-container #s2-episodes {
+        display: block;
+      }
+      #seasons-container:has(> #s3:checked) + #episodes-container #s3-episodes {
+        display: block;
+      }
+      #seasons-container:has(> #s4:checked) + #episodes-container #s4-episodes {
+        display: block;
+      }
+      #top-left-container {
+        position: absolute;
+        top: 0px;
+        left: 0px;
+      }
+      #top-left-container #check-button {
+        background-color: grey;
+      }
+      #top-left-container #check-button #check-button-button {
+        display: none;
+      }
+      #seasons-container:has(#s1:checked) + #episodes-container:has(#s1-episodes input:checked) + #top-left-container #check-button {
+        background-color: green;
+      }
+      #seasons-container:has(#s2:checked) + #episodes-container:has(#s2-episodes input:checked) + #top-left-container #check-button {
+        background-color: green;
+      }
+      #seasons-container:has(#s3:checked) + #episodes-container:has(#s3-episodes input:checked) + #top-left-container #check-button {
+        background-color: green;
+      }
+      #seasons-container:has(#s4:checked) + #episodes-container:has(#s4-episodes input:checked) + #top-left-container #check-button {
+        background-color: green;
+      }
+      #main-image {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        width: 50%
+      }
+      body {
+        margin: 10px;
+        padding: 10px;
+      }
+    </style>
+    <script>
+      var attempts = 1;
+      function lose() {
+        document.getElementById("normal-container").style.display = "none";
+        document.getElementById("lose-container").style.display = "block";
+      }
+      function win() {
+        document.getElementById("normal-container").style.display = "none";
+        document.getElementById("win-container").style.display = "block";
+      }
+      function checkButtonClicked() {
+        let episode = document.querySelector('input[name="episode"]:checked').value;
+        if (episode == "INSERT_CORRECT_ANSWER_HERE") {
+          win();
+        } else {
+          if (attempts == 5) {
+            lose();
+          } else {
+            attempts += 1;
+            document.getElementById("main-image").src = `./${attempts}.jpg`
+          }
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <div id="normal-container">
+      <div>
+        <img id="main-image" src="./1.jpg" height="540" width="960"></img>
+      </div>
+      <div id="seasons-container">
+        <input id="s1" name="season" type="radio"></button>
+        <label for="s1">Season 1</label>
+        <input id="s2" name="season" type="radio"></button>
+        <label for="s2">Season 2</label>
+        <input id="s3" name="season" type="radio"></button>
+        <label for="s3">Season 3</label>
+        <input id="s4" name="season" type="radio"></button>
+        <label for="s4">Season 4</label>
+      </div>
+      <div id="episodes-container">
+        INSERT_EPISODES_HERE
+      </div>
+      <div id="top-left-container">
+        <div id="check-button">
+          <button id="check-button-button" onclick="checkButtonClicked()"></button>
+          <label for="check-button-button">Check</label>
+        </div>
+      </div>
+    </div>
+    <div id="win-container">
+      <b>You Won!</b>
+    </div>
+    <div id="lose-container">
+      <b>You Lost!</b>
+    </div>
+  </body>
+</html>
